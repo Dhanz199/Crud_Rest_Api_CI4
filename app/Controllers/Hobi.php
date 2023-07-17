@@ -3,14 +3,13 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\ProdukModel;
+use App\Models\HobiModels;
 
 
-class Produk extends ResourceController
+class Hobi extends ResourceController
 {
     // Routes Api/Produk
-    protected $modelName = '\App\Models\ProdukModel';
-
+    protected $modelName = '\App\Models\HobiModels';
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -18,6 +17,7 @@ class Produk extends ResourceController
      */
     public function index()
     {
+
         // Menampilkan Data Produk
         return $this->respond([
             'status' => true,
@@ -35,7 +35,8 @@ class Produk extends ResourceController
         // Menampilkan Data Produk berdasarkan Id produk
         return $this->respond([
             'status' => true,
-            'data' => $this->model->find($id)
+            'data' => $this->model->find($id),
+            'message' => 'Data Hobi Tidak Ditemukan'
         ], 200);
     }
 
@@ -48,14 +49,14 @@ class Produk extends ResourceController
     {
         // Membuat Data Produk
         $data = [
-            'nama_produk' => $this->request->getVar('nama_produk'),
-            'harga' => $this->request->getVar('harga')
+            'nama' => $this->request->getVar('nama'),
+            'hobi' => $this->request->getVar('hobi')
         ];
 
         if ($this->model->save($data)) {
             return $this->respond([
                 'status' => true,
-                'message' => 'Data Produk Berhasil ditambahkan'
+                'message' => 'Data Hobi Berhasil ditambahkan'
             ], 200);
         } else {
             return $this->respond([
@@ -75,18 +76,18 @@ class Produk extends ResourceController
         // Mengubah Data Produk Berdasarkan Id
 
         if (!$this->model->find($id)) {
-            return $this->respond(['status' => false, 'messages' => 'Data Produk Tidak Ditemukan']);
+            return $this->respond(['status' => false, 'messages' => 'Data Hobi Tidak Ditemukan']);
         }
 
         $data = [
-            'nama_produk' => $this->request->getVar('nama_produk'),
-            'harga' => $this->request->getVar('harga')
+            'nama' => $this->request->getVar('nama'),
+            'hobi' => $this->request->getVar('hobi')
         ];
 
         if ($this->model->update($id, $data)) {
             return $this->respond([
                 'status' => true,
-                'message' => 'Data Produk Berhasil diubah'
+                'message' => 'Data Hobi Berhasil diubah'
             ], 200);
         } else {
             return $this->respond([
@@ -108,7 +109,7 @@ class Produk extends ResourceController
 
         return $this->respond([
             'status' => true,
-            'message' => 'Data Produk Berhasil dihapus'
+            'message' => 'Data Hobi Berhasil dihapus'
         ], 200);
     }
 }

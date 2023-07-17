@@ -32,7 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 
 $routes->group('api', function ($routes) {
-    $routes->resource('produk');
+    $routes->resource('hobi');
 });
 
 /*
