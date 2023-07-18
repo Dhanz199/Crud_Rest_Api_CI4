@@ -15,7 +15,6 @@ class Hobi extends ResourceController
      */
     public function index()
     {
-
         // Menampilkan Data Produk
         return $this->respond([
             'status' => true,
@@ -31,18 +30,10 @@ class Hobi extends ResourceController
     public function show($id = null)
     {
         // Menampilkan Data Hobi berdasarkan Id
-
-        if ($this->model->find($id)) {
-            return $this->respond([
-                'status' => true,
-                'data' => $this->model->find($id),
-            ], 200);
-        } else {
-            return $this->respond([
-                'status' => false,
-                'message' => 'Data Hobi Tidak Ditemukan'
-            ], 422);
-        };
+        return $this->respond([
+            'status' => true,
+            'data' => $this->model->find($id),
+        ], 200);
     }
 
     /**
