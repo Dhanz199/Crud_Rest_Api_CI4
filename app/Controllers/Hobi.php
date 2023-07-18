@@ -3,12 +3,10 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\HobiModels;
-
 
 class Hobi extends ResourceController
 {
-    // Routes Api/Produk
+    // Routes Api/hobi
     protected $modelName = '\App\Models\HobiModels';
     /**
      * Return an array of resource objects, themselves in array format
@@ -32,12 +30,19 @@ class Hobi extends ResourceController
      */
     public function show($id = null)
     {
-        // Menampilkan Data Produk berdasarkan Id produk
-        return $this->respond([
-            'status' => true,
-            'data' => $this->model->find($id),
-            'message' => 'Data Hobi Tidak Ditemukan'
-        ], 200);
+        // Menampilkan Data Hobi berdasarkan Id
+
+        if ($this->model->find($id)) {
+            return $this->respond([
+                'status' => true,
+                'data' => $this->model->find($id),
+            ], 200);
+        } else {
+            return $this->respond([
+                'status' => false,
+                'message' => 'Data Hobi Tidak Ditemukan'
+            ], 422);
+        };
     }
 
     /**
@@ -73,7 +78,7 @@ class Hobi extends ResourceController
      */
     public function update($id = null)
     {
-        // Mengubah Data Produk Berdasarkan Id
+        // Mengubah Data Hobi Berdasarkan Id
 
         if (!$this->model->find($id)) {
             return $this->respond(['status' => false, 'messages' => 'Data Hobi Tidak Ditemukan']);
@@ -104,7 +109,7 @@ class Hobi extends ResourceController
      */
     public function delete($id = null)
     {
-        // Menghapus Data Produk Berdasarkan Id
+        // Menghapus Data Hobi Berdasarkan Id
         $this->model->delete($id);
 
         return $this->respond([
